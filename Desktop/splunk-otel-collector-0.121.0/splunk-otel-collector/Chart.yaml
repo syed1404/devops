@@ -1,0 +1,36 @@
+apiVersion: v2
+appVersion: 0.121.0
+dependencies:
+- alias: certmanager
+  condition: certmanager.enabled
+  name: cert-manager
+  repository: https://charts.jetstack.io
+  version: v1.14.4
+- alias: operatorcrds
+  condition: operatorcrds.install
+  name: opentelemetry-operator-crds
+  repository: ""
+  version: 0.0.1
+- alias: operator
+  condition: operator.enabled
+  name: opentelemetry-operator
+  repository: https://open-telemetry.github.io/opentelemetry-helm-charts
+  version: 0.80.2
+description: Splunk OpenTelemetry Collector for Kubernetes
+icon: https://github.com/signalfx/splunk-otel-collector-chart/tree/main/splunk.png
+keywords:
+- splunk
+- opentelemetry
+- observability
+- logs
+- traces
+- metrics
+- apm
+- instrumentation
+maintainers:
+- name: dmitryax
+- name: jvoravong
+- name: atoulme
+name: splunk-otel-collector
+type: application
+version: 0.121.0

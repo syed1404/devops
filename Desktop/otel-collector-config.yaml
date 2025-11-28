@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-config
+  namespace: ot-test
+  labels:
+    app: otel-collector
+    component: config
+    version: v1
+
+data:
+  otel-collector-config.yaml: |
+    receivers:
+      filelog:
+        include: [/var/log/containers/*.log]  
+        start_at: beginning
+        operators:
+          - type: json_parser
+            parse_from: body
+            if: 'body matches "^\\{.*\\}$"'  # Parse JSON logs
+
+          - type: regex_parser  
+            regex: '^(?P<severity>INFO|ERROR|WARN|DEBUG) (?P<log>.*)$'
+            parse_from: body  
+            if: 'body != nil'  
+
+          - type: regex_parser  
+            regex: '^(?P<timestamp>\S+) (?P<stream>\S+) (?P<log>.*)$'
+            if: 'not (body matches "^\\{.*\\}$")'  
+
+          - type: time_parser
+            layout: "%Y-%m-%dT%H:%M:%S.%LZ"
+            parse_from: attributes.timestamp
+            if: 'attributes.timestamp != nil'
+
+          - type: add  
+            field: attributes.timestamp
+            value: '{{ .timestamp }}'
+            if: 'attributes.timestamp == nil'
+
+          - type: move  
+            from: attributes.log
+            to: body
+            if: 'attributes.log != nil'
+
+    processors:
+      attributes: 
+        actions:
+          - key: trace_id
+            action: insert
+            from_attribute: trace.id
+          - key: span_id
+            action: insert
+            from_attribute: span.id
+
+      batch:
+        send_batch_size: 50
+        timeout: 3s  
+
+      memory_limiter:
+        check_interval: 10s  
+        limit_percentage: 75
+        spike_limit_percentage: 25
+
+    exporters:
+      splunk_hec:
+        endpoint: "https://splunk-hec.umd.edu:8088/services/collector"
+        token: "your-splunk-token-here" 
+        source: "kubernetes"
+        sourcetype: "_json"
+        index: "your-index-name"
+        sending_queue:
+          enabled: true
+          num_consumers: 10 
+          queue_size: 5000 
+        retry_on_failure:
+          enabled: true
+          initial_interval: 5s  
+          max_interval: 30s
+          max_elapsed_time: 5m
+
+      debug:
+        verbosity: normal  
+
+    service:
+      pipelines:
+        logs:
+          receivers: [filelog]
+          processors: [attributes, batch, memory_limiter]
+          exporters: [splunk_hec, debug]

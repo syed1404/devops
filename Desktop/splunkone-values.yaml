@@ -1,0 +1,8 @@
+splunkPlatform:
+  token: "3e4359b3-9f6f-45f0-bc20-f709b6c0e63f"
+  endpoint: "https://splunk-hec.umd.edu:8088/services/collector"
+  index: svpaap_libr_dss_ssdr_k8_applogs
+  insecureSkipVerify: false
+
+clusterName: "libr-test-cluster"
+logsEngine: "otel"

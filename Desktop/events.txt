@@ -1,0 +1,281 @@
+$ kubectl logs splunk-otel-collector-test-agent-jt5dh
+2025/03/25 15:33:53 settings.go:478: Set config to [/conf/relay.yaml]
+2025/03/25 15:33:53 settings.go:539: Set memory limit to 450 MiB
+2025/03/25 15:33:53 settings.go:524: Set soft memory limit set to 450 MiB
+2025/03/25 15:33:53 settings.go:373: Set garbage collection target percentage (GOGC) to 400
+2025/03/25 15:33:53 settings.go:414: set "SPLUNK_LISTEN_INTERFACE" to "0.0.0.0"
+2025-03-25T15:33:53.476Z        info    service@v0.121.0/service.go:193 Setting up own telemetry...
+2025-03-25T15:33:53.477Z        info    memorylimiter@v0.121.0/memorylimiter.go:74      Memory limiter configured       {"otelcol.component.kind": "Processor", "limit_mib": 450, "spike_limit_mib": 90, "check_interval": 2}
+2025-03-25T15:33:53.482Z        warn    kubeletstatsreceiver@v0.121.0/factory.go:96     The default metric container.cpu.utilization is being replaced by the container.cpu.usage metric. Switch now by enabling the receiver.kubeletstats.enableCPUUsageMetrics feature gate.      {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    kubeletstatsreceiver@v0.121.0/factory.go:99     The default metric k8s.pod.cpu.utilization is being replaced by the k8s.pod.cpu.usage metric. Switch now by enabling the receiver.kubeletstats.enableCPUUsageMetrics feature gate.  {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    kubeletstatsreceiver@v0.121.0/factory.go:102    The default metric k8s.node.cpu.utilization is being replaced by the k8s.node.cpu.usage metric. Switch now by enabling the receiver.kubeletstats.enableCPUUsageMetrics feature gate.        {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    metadata/generated_metrics.go:3104      [WARNING] `container.cpu.utilization` should not be enabled: This metric will be disabled in a future release. Use metric container.cpu.usage instead.      {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    metadata/generated_metrics.go:3107      [WARNING] `k8s.node.cpu.utilization` should not be enabled: This metric will be disabled in a future release. Use metric k8s.node.cpu.usage instead.        {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    metadata/generated_metrics.go:3110      [WARNING] `k8s.pod.cpu.utilization` should not be enabled: This metric will be disabled in a future release. Use metric k8s.pod.cpu.usage instead.  {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    metadata/generated_metrics.go:3104      [WARNING] `container.cpu.utilization` should not be enabled: This metric will be disabled in a future release. Use metric container.cpu.usage instead.      {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    metadata/generated_metrics.go:3107      [WARNING] `k8s.node.cpu.utilization` should not be enabled: This metric will be disabled in a future release. Use metric k8s.node.cpu.usage instead.        {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    metadata/generated_metrics.go:3110      [WARNING] `k8s.pod.cpu.utilization` should not be enabled: This metric will be disabled in a future release. Use metric k8s.pod.cpu.usage instead.  {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    metadata/generated_metrics.go:3104      [WARNING] `container.cpu.utilization` should not be enabled: This metric will be disabled in a future release. Use metric container.cpu.usage instead.      {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    metadata/generated_metrics.go:3107      [WARNING] `k8s.node.cpu.utilization` should not be enabled: This metric will be disabled in a future release. Use metric k8s.node.cpu.usage instead.        {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    metadata/generated_metrics.go:3110      [WARNING] `k8s.pod.cpu.utilization` should not be enabled: This metric will be disabled in a future release. Use metric k8s.pod.cpu.usage instead.  {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    metadata/generated_metrics.go:3104      [WARNING] `container.cpu.utilization` should not be enabled: This metric will be disabled in a future release. Use metric container.cpu.usage instead.      {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    metadata/generated_metrics.go:3107      [WARNING] `k8s.node.cpu.utilization` should not be enabled: This metric will be disabled in a future release. Use metric k8s.node.cpu.usage instead.        {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.482Z        warn    metadata/generated_metrics.go:3110      [WARNING] `k8s.pod.cpu.utilization` should not be enabled: This metric will be disabled in a future release. Use metric k8s.pod.cpu.usage instead.  {"otelcol.component.id": "kubeletstats", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.483Z        info    service@v0.121.0/service.go:258 Starting otelcol...     {"Version": "v0.121.0", "NumCPU": 16}
+2025-03-25T15:33:53.483Z        info    extensions/extensions.go:40     Starting extensions...
+2025-03-25T15:33:53.483Z        info    extensions/extensions.go:44     Extension is starting...        {"otelcol.component.id": "health_check", "otelcol.component.kind": "Extension"}
+2025-03-25T15:33:53.483Z        info    healthcheckextension@v0.121.0/healthcheckextension.go:32        Starting health_check extension {"otelcol.component.id": "health_check", "otelcol.component.kind": "Extension", "config": {"Endpoint":"0.0.0.0:13133","TLSSetting":null,"CORS":null,"Auth":null,"MaxRequestBodySize":0,"IncludeMetadata":false,"ResponseHeaders":null,"CompressionAlgorithms":null,"ReadTimeout":0,"ReadHeaderTimeout":0,"WriteTimeout":0,"IdleTimeout":0,"Path":"/","ResponseBody":null,"CheckCollectorPipeline":{"Enabled":false,"Interval":"5m","ExporterFailureThreshold":5}}}
+2025-03-25T15:33:53.484Z        info    extensions/extensions.go:61     Extension started.      {"otelcol.component.id": "health_check", "otelcol.component.kind": "Extension"}
+2025-03-25T15:33:53.484Z        info    extensions/extensions.go:44     Extension is starting...        {"otelcol.component.id": "file_storage", "otelcol.component.kind": "Extension"}
+2025-03-25T15:33:53.484Z        info    extensions/extensions.go:61     Extension started.      {"otelcol.component.id": "file_storage", "otelcol.component.kind": "Extension"}
+2025-03-25T15:33:53.484Z        info    extensions/extensions.go:44     Extension is starting...        {"otelcol.component.id": "zpages", "otelcol.component.kind": "Extension"}
+2025-03-25T15:33:53.484Z        info    zpagesextension@v0.121.0/zpagesextension.go:54  Registered zPages span processor on tracer provider     {"otelcol.component.id": "zpages", "otelcol.component.kind": "Extension"}
+2025-03-25T15:33:53.484Z        info    zpagesextension@v0.121.0/zpagesextension.go:64  Registered Host's zPages        {"otelcol.component.id": "zpages", "otelcol.component.kind": "Extension"}
+2025-03-25T15:33:53.484Z        info    zpagesextension@v0.121.0/zpagesextension.go:76  Starting zPages extension       {"otelcol.component.id": "zpages", "otelcol.component.kind": "Extension", "config": {"Endpoint":"localhost:55679","TLSSetting":null,"CORS":null,"Auth":null,"MaxRequestBodySize":0,"IncludeMetadata":false,"ResponseHeaders":null,"CompressionAlgorithms":null,"ReadTimeout":0,"ReadHeaderTimeout":0,"WriteTimeout":0,"IdleTimeout":0}}
+2025-03-25T15:33:53.484Z        info    extensions/extensions.go:61     Extension started.      {"otelcol.component.id": "zpages", "otelcol.component.kind": "Extension"}
+2025-03-25T15:33:53.484Z        info    extensions/extensions.go:44     Extension is starting...        {"otelcol.component.id": "k8s_observer", "otelcol.component.kind": "Extension"}
+2025-03-25T15:33:53.484Z        info    extensions/extensions.go:61     Extension started.      {"otelcol.component.id": "k8s_observer", "otelcol.component.kind": "Extension"}
+2025-03-25T15:33:53.484Z        info    kube/client.go:141      k8s filtering   {"otelcol.component.id": "k8sattributes/metrics", "otelcol.component.kind": "Processor", "otelcol.pipeline.id": "metrics", "otelcol.signal": "metrics", "labelSelector": "", "fieldSelector": "spec.nodeName=ip-10-126-13-188.ec2.internal"}
+2025-03-25T15:33:53.484Z        info    internal/resourcedetection.go:137       began detecting resource information    {"otelcol.component.id": "resourcedetection", "otelcol.component.kind": "Processor", "otelcol.pipeline.id": "metrics", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.509Z        info    internal/resourcedetection.go:188       detected resource information   {"otelcol.component.id": "resourcedetection", "otelcol.component.kind": "Processor", "otelcol.pipeline.id": "metrics", "otelcol.signal": "metrics", "resource": {"host.name":"ip-10-126-13-188.ec2.internal","os.type":"linux"}}
+2025-03-25T15:33:53.509Z        info    otlpreceiver@v0.121.0/otlp.go:116       Starting GRPC server    {"otelcol.component.id": "otlp", "otelcol.component.kind": "Receiver", "endpoint": "0.0.0.0:4317"}
+2025-03-25T15:33:53.509Z        info    otlpreceiver@v0.121.0/otlp.go:173       Starting HTTP server    {"otelcol.component.id": "otlp", "otelcol.component.kind": "Receiver", "endpoint": "0.0.0.0:4318"}
+2025-03-25T15:33:53.510Z        info    kube/client.go:141      k8s filtering   {"otelcol.component.id": "k8sattributes", "otelcol.component.kind": "Processor", "otelcol.pipeline.id": "logs", "otelcol.signal": "logs", "labelSelector": "", "fieldSelector": "spec.nodeName=ip-10-126-13-188.ec2.internal"}
+2025-03-25T15:33:53.510Z        info    adapter/receiver.go:41  Starting stanza receiver        {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs"}
+2025-03-25T15:33:53.567Z        info    fileconsumer/file.go:62 Resuming from previously known offset(s). 'start_at' setting is not applicable. {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer"}
+2025-03-25T15:33:53.567Z        info    kube/client.go:141      k8s filtering   {"otelcol.component.id": "k8sattributes/metrics", "otelcol.component.kind": "Processor", "otelcol.pipeline.id": "metrics/agent", "otelcol.signal": "metrics", "labelSelector": "", "fieldSelector": "spec.nodeName=ip-10-126-13-188.ec2.internal"}
+2025-03-25T15:33:53.568Z        info    kube/client.go:141      k8s filtering   {"otelcol.component.id": "k8sattributes", "otelcol.component.kind": "Processor", "otelcol.pipeline.id": "traces", "otelcol.signal": "traces", "labelSelector": "", "fieldSelector": "spec.nodeName=ip-10-126-13-188.ec2.internal"}
+2025-03-25T15:33:53.568Z        info    jaegerreceiver@v0.121.0/trace_receiver.go:347   Starting HTTP server for Jaeger Thrift  {"otelcol.component.id": "jaeger", "otelcol.component.kind": "Receiver", "otelcol.signal": "traces", "endpoint": "0.0.0.0:14268"}
+2025-03-25T15:33:53.568Z        info    jaegerreceiver@v0.121.0/trace_receiver.go:372   Starting gRPC server for Jaeger Protobuf        {"otelcol.component.id": "jaeger", "otelcol.component.kind": "Receiver", "otelcol.signal": "traces", "endpoint": "0.0.0.0:14250"}
+2025-03-25T15:33:53.569Z        info    prometheusreceiver@v0.121.0/metrics_receiver.go:119     Starting discovery manager      {"otelcol.component.id": "prometheus/agent", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.575Z        info    targetallocator/manager.go:184  Scrape job added        {"otelcol.component.id": "prometheus/agent", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics", "jobName": "otel-agent"}
+2025-03-25T15:33:53.575Z        info    healthcheck/handler.go:132      Health Check state change       {"otelcol.component.id": "health_check", "otelcol.component.kind": "Extension", "status": "ready"}
+2025-03-25T15:33:53.575Z        info    service@v0.121.0/service.go:281 Everything is ready. Begin running and processing data.
+2025-03-25T15:33:53.575Z        info    prometheusreceiver@v0.121.0/metrics_receiver.go:189     Starting scrape manager {"otelcol.component.id": "prometheus/agent", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics"}
+2025-03-25T15:33:53.768Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/default_splunk-otel-collector-test-agent-jt5dh_63063686-3974-462b-912f-9e41ebaa914c/migrate-checkpoint/0.log"}
+2025-03-25T15:33:54.569Z        info    receivercreator@v0.121.0/observerhandler.go:201 starting receiver       {"otelcol.component.id": "receiver_creator", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics", "name": "smartagent/coredns", "endpoint": "10.126.12.57", "endpoint_id": "k8s_observer/5e630140-0373-4f36-87fa-fdf7d424abac", "config": {"extraDimensions":{"metric_source":"k8s-coredns"},"port":9153,"type":"coredns"}}
+2025-03-25T15:33:54.570Z        info    receivercreator@v0.121.0/observerhandler.go:201 starting receiver       {"otelcol.component.id": "receiver_creator", "otelcol.component.kind": "Receiver", "otelcol.signal": "metrics", "name": "smartagent/kubernetes-proxy", "endpoint": "10.126.13.188", "endpoint_id": "k8s_observer/faf59ea6-914f-47e3-a424-2e9462dff450", "config": {"extraDimensions":{"metric_source":"kubernetes-proxy"},"port":10249,"scrapeFailureLogLevel":"debug","type":"kubernetes-proxy"}}
+2025-03-25T17:45:45.719Z        error   splunkhecexporter@v0.121.0/hec_worker.go:62     Splunk is unable to receive data. Please investigate the health of the cluster  {"otelcol.component.id": "splunk_hec/platform_logs", "otelcol.component.kind": "Exporter", "otelcol.signal": "logs", "status": 503, "host": "https://splunk-hec.umd.edu:8088/services/collector"}
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*defaultHecWorker).send
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/hec_worker.go:62
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).postEvents
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:476
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushLogDataInBatches
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:181
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushLogData
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:152
+go.opentelemetry.io/collector/exporter/exporterhelper.(*logsRequest).Export
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/logs.go:66
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewBaseExporter.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/base_exporter.go:72
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*sender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/sender.go:31
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*retrySender).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/retry_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*obsReportSender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/obs_report_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewQueueSender.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/queue_sender.go:44
+go.opentelemetry.io/collector/exporter/exporterhelper/internal/batcher.(*disabledBatcher[...]).Consume
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/batcher/disabled_batcher.go:23
+go.opentelemetry.io/collector/exporter/exporterqueue.(*asyncQueue[...]).Start.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterqueue/async_queue.go:47
+2025-03-25T17:45:45.720Z        info    internal/retry_sender.go:126    Exporting failed. Will retry the request after interval.        {"otelcol.component.id": "splunk_hec/platform_logs", "otelcol.component.kind": "Exporter", "otelcol.signal": "logs", "error": "Throttle (0s), error: HTTP 503 \"Service Unavailable\"", "interval": "6.01365917s"}
+2025-03-25T17:53:51.168Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/kube-system_ebs-csi-controller-85cd5c59d8-lkn7q_36e07323-d0a5-40f1-9435-b80906899660/csi-provisioner/0.log"}
+2025-03-25T17:53:51.168Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/kube-system_ebs-csi-controller-85cd5c59d8-lkn7q_36e07323-d0a5-40f1-9435-b80906899660/ebs-plugin/0.log"}
+2025-03-25T17:53:51.368Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/kube-system_ebs-csi-controller-85cd5c59d8-lkn7q_36e07323-d0a5-40f1-9435-b80906899660/csi-attacher/0.log"}
+2025-03-25T17:53:51.568Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/kube-system_ebs-csi-controller-85cd5c59d8-lkn7q_36e07323-d0a5-40f1-9435-b80906899660/csi-resizer/0.log"}
+2025-03-25T17:53:51.568Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/kube-system_ebs-csi-controller-85cd5c59d8-lkn7q_36e07323-d0a5-40f1-9435-b80906899660/csi-snapshotter/0.log"}
+2025-03-25T17:53:51.568Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/kube-system_ebs-csi-controller-85cd5c59d8-lkn7q_36e07323-d0a5-40f1-9435-b80906899660/liveness-probe/0.log"}
+2025-03-25T17:53:52.369Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/kube-system_ebs-csi-node-fnsm9_47dc4cda-5dcf-492b-b178-ec2ae9dc521d/ebs-plugin/0.log"}
+2025-03-25T17:53:52.369Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/kube-system_ebs-csi-node-fnsm9_47dc4cda-5dcf-492b-b178-ec2ae9dc521d/liveness-probe/0.log"}
+2025-03-25T17:53:52.369Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/kube-system_ebs-csi-node-fnsm9_47dc4cda-5dcf-492b-b178-ec2ae9dc521d/node-driver-registrar/0.log"}
+2025-03-25T18:48:20.569Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/sandbox_devops-nginx-684f86f9b-gc2hp_97640592-e362-4f3b-87a8-af2b8e9e45ea/devops-nginx/0.log"}
+2025-03-25T18:58:25.168Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/cert-manager_cert-manager-6794b8d569-p2gx8_c09c87f1-df7d-436f-ba23-f4ea166a6010/cert-manager-controller/0.log"}
+2025-03-26T09:33:45.568Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/cert-manager_cert-manager-6794b8d569-p2gx8_c09c87f1-df7d-436f-ba23-f4ea166a6010/cert-manager-controller/0.log"}
+2025-03-26T11:54:23.368Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/sandbox_static-files-nginx-599cdc78dd-x69dh_97395a1a-e108-47cc-b19a-1e713bb2f6f3/static-files-nginx/0.log"}
+2025-03-26T12:37:53.491Z        info    internal/retry_sender.go:126    Exporting failed. Will retry the request after interval.        {"otelcol.component.id": "splunk_hec/platform_logs", "otelcol.component.kind": "Exporter", "otelcol.signal": "logs", "error": "Post \"https://splunk-hec.umd.edu:8088/services/collector\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)", "interval": "2.56993597s"}
+2025-03-26T12:50:30.922Z        error   splunkhecexporter@v0.121.0/hec_worker.go:62     Splunk is unable to receive data. Please investigate the health of the cluster  {"otelcol.component.id": "splunk_hec/platform_metrics", "otelcol.component.kind": "Exporter", "otelcol.signal": "metrics", "status": 503, "host": "https://splunk-hec.umd.edu:8088/services/collector"}
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*defaultHecWorker).send
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/hec_worker.go:62
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).postEvents
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:476
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushMetricsDataInBatches
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:437
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushMetricsData
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:103
+go.opentelemetry.io/collector/exporter/exporterhelper.(*metricsRequest).Export
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/metrics.go:65
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewBaseExporter.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/base_exporter.go:72
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*sender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/sender.go:31
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*retrySender).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/retry_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*obsReportSender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/obs_report_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewQueueSender.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/queue_sender.go:44
+go.opentelemetry.io/collector/exporter/exporterhelper/internal/batcher.(*disabledBatcher[...]).Consume
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/batcher/disabled_batcher.go:23
+go.opentelemetry.io/collector/exporter/exporterqueue.(*asyncQueue[...]).Start.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterqueue/async_queue.go:47
+2025-03-26T12:50:30.922Z        info    internal/retry_sender.go:126    Exporting failed. Will retry the request after interval.        {"otelcol.component.id": "splunk_hec/platform_metrics", "otelcol.component.kind": "Exporter", "otelcol.signal": "metrics", "error": "Throttle (0s), error: HTTP 503 \"Service Unavailable\"", "interval": "3.49901461s"}
+2025-03-26T18:00:40.111Z        error   splunkhecexporter@v0.121.0/hec_worker.go:62     Splunk is unable to receive data. Please investigate the health of the cluster  {"otelcol.component.id": "splunk_hec/platform_metrics", "otelcol.component.kind": "Exporter", "otelcol.signal": "metrics", "status": 503, "host": "https://splunk-hec.umd.edu:8088/services/collector"}
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*defaultHecWorker).send
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/hec_worker.go:62
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).postEvents
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:476
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushMetricsDataInBatches
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:437
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushMetricsData
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:103
+go.opentelemetry.io/collector/exporter/exporterhelper.(*metricsRequest).Export
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/metrics.go:65
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewBaseExporter.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/base_exporter.go:72
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*sender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/sender.go:31
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*retrySender).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/retry_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*obsReportSender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/obs_report_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewQueueSender.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/queue_sender.go:44
+go.opentelemetry.io/collector/exporter/exporterhelper/internal/batcher.(*disabledBatcher[...]).Consume
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/batcher/disabled_batcher.go:23
+go.opentelemetry.io/collector/exporter/exporterqueue.(*asyncQueue[...]).Start.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterqueue/async_queue.go:47
+2025-03-26T18:00:40.111Z        info    internal/retry_sender.go:126    Exporting failed. Will retry the request after interval.        {"otelcol.component.id": "splunk_hec/platform_metrics", "otelcol.component.kind": "Exporter", "otelcol.signal": "metrics", "error": "Throttle (0s), error: HTTP 503 \"Service Unavailable\"", "interval": "2.672870033s"}
+2025-03-26T18:00:45.576Z        error   splunkhecexporter@v0.121.0/hec_worker.go:62     Splunk is unable to receive data. Please investigate the health of the cluster  {"otelcol.component.id": "splunk_hec/platform_logs", "otelcol.component.kind": "Exporter", "otelcol.signal": "logs", "status": 503, "host": "https://splunk-hec.umd.edu:8088/services/collector"}
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*defaultHecWorker).send
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/hec_worker.go:62
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).postEvents
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:476
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushLogDataInBatches
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:181
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushLogData
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:152
+go.opentelemetry.io/collector/exporter/exporterhelper.(*logsRequest).Export
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/logs.go:66
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewBaseExporter.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/base_exporter.go:72
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*sender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/sender.go:31
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*retrySender).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/retry_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*obsReportSender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/obs_report_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewQueueSender.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/queue_sender.go:44
+go.opentelemetry.io/collector/exporter/exporterhelper/internal/batcher.(*disabledBatcher[...]).Consume
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/batcher/disabled_batcher.go:23
+go.opentelemetry.io/collector/exporter/exporterqueue.(*asyncQueue[...]).Start.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterqueue/async_queue.go:47
+2025-03-26T18:00:45.577Z        info    internal/retry_sender.go:126    Exporting failed. Will retry the request after interval.        {"otelcol.component.id": "splunk_hec/platform_logs", "otelcol.component.kind": "Exporter", "otelcol.signal": "logs", "error": "Throttle (0s), error: HTTP 503 \"Service Unavailable\"", "interval": "7.085518797s"}
+2025-03-26T18:00:48.047Z        error   splunkhecexporter@v0.121.0/hec_worker.go:62     Splunk is unable to receive data. Please investigate the health of the cluster  {"otelcol.component.id": "splunk_hec/platform_metrics", "otelcol.component.kind": "Exporter", "otelcol.signal": "metrics", "status": 503, "host": "https://splunk-hec.umd.edu:8088/services/collector"}
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*defaultHecWorker).send
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/hec_worker.go:62
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).postEvents
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:476
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushMetricsDataInBatches
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:437
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushMetricsData
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:103
+go.opentelemetry.io/collector/exporter/exporterhelper.(*metricsRequest).Export
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/metrics.go:65
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewBaseExporter.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/base_exporter.go:72
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*sender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/sender.go:31
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*retrySender).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/retry_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*obsReportSender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/obs_report_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewQueueSender.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/queue_sender.go:44
+go.opentelemetry.io/collector/exporter/exporterhelper/internal/batcher.(*disabledBatcher[...]).Consume
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/batcher/disabled_batcher.go:23
+go.opentelemetry.io/collector/exporter/exporterqueue.(*asyncQueue[...]).Start.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterqueue/async_queue.go:47
+2025-03-26T18:00:48.047Z        info    internal/retry_sender.go:126    Exporting failed. Will retry the request after interval.        {"otelcol.component.id": "splunk_hec/platform_metrics", "otelcol.component.kind": "Exporter", "otelcol.signal": "metrics", "error": "Throttle (0s), error: HTTP 503 \"Service Unavailable\"", "interval": "9.542314422s"}
+2025-03-26T18:00:52.263Z        error   splunkhecexporter@v0.121.0/hec_worker.go:62     Splunk is unable to receive data. Please investigate the health of the cluster  {"otelcol.component.id": "splunk_hec/platform_metrics", "otelcol.component.kind": "Exporter", "otelcol.signal": "metrics", "status": 503, "host": "https://splunk-hec.umd.edu:8088/services/collector"}
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*defaultHecWorker).send
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/hec_worker.go:62
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).postEvents
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:476
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushMetricsDataInBatches
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:437
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushMetricsData
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:103
+go.opentelemetry.io/collector/exporter/exporterhelper.(*metricsRequest).Export
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/metrics.go:65
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewBaseExporter.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/base_exporter.go:72
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*sender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/sender.go:31
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*retrySender).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/retry_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*obsReportSender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/obs_report_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewQueueSender.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/queue_sender.go:44
+go.opentelemetry.io/collector/exporter/exporterhelper/internal/batcher.(*disabledBatcher[...]).Consume
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/batcher/disabled_batcher.go:23
+go.opentelemetry.io/collector/exporter/exporterqueue.(*asyncQueue[...]).Start.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterqueue/async_queue.go:47
+2025-03-26T18:00:52.264Z        info    internal/retry_sender.go:126    Exporting failed. Will retry the request after interval.        {"otelcol.component.id": "splunk_hec/platform_metrics", "otelcol.component.kind": "Exporter", "otelcol.signal": "metrics", "error": "Throttle (0s), error: HTTP 503 \"Service Unavailable\"", "interval": "4.456844787s"}
+2025-03-26T18:00:55.870Z        info    internal/retry_sender.go:126    Exporting failed. Will retry the request after interval.        {"otelcol.component.id": "splunk_hec/platform_metrics", "otelcol.component.kind": "Exporter", "otelcol.signal": "metrics", "error": "Post \"https://splunk-hec.umd.edu:8088/services/collector\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)", "interval": "3.539081299s"}
+2025-03-26T18:00:59.888Z        error   splunkhecexporter@v0.121.0/hec_worker.go:62     Splunk is unable to receive data. Please investigate the health of the cluster  {"otelcol.component.id": "splunk_hec/platform_logs", "otelcol.component.kind": "Exporter", "otelcol.signal": "logs", "status": 503, "host": "https://splunk-hec.umd.edu:8088/services/collector"}
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*defaultHecWorker).send
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/hec_worker.go:62
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).postEvents
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:476
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushLogDataInBatches
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:181
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushLogData
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:152
+go.opentelemetry.io/collector/exporter/exporterhelper.(*logsRequest).Export
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/logs.go:66
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewBaseExporter.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/base_exporter.go:72
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*sender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/sender.go:31
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*retrySender).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/retry_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*obsReportSender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/obs_report_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewQueueSender.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/queue_sender.go:44
+go.opentelemetry.io/collector/exporter/exporterhelper/internal/batcher.(*disabledBatcher[...]).Consume
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/batcher/disabled_batcher.go:23
+go.opentelemetry.io/collector/exporter/exporterqueue.(*asyncQueue[...]).Start.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterqueue/async_queue.go:47
+2025-03-26T18:00:59.888Z        info    internal/retry_sender.go:126    Exporting failed. Will retry the request after interval.        {"otelcol.component.id": "splunk_hec/platform_logs", "otelcol.component.kind": "Exporter", "otelcol.signal": "logs", "error": "Throttle (0s), error: HTTP 503 \"Service Unavailable\"", "interval": "4.455331792s"}
+2025-03-26T18:01:00.072Z        error   splunkhecexporter@v0.121.0/hec_worker.go:62     Splunk is unable to receive data. Please investigate the health of the cluster  {"otelcol.component.id": "splunk_hec/platform_logs", "otelcol.component.kind": "Exporter", "otelcol.signal": "logs", "status": 503, "host": "https://splunk-hec.umd.edu:8088/services/collector"}
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*defaultHecWorker).send
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/hec_worker.go:62
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).postEvents
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:476
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushLogDataInBatches
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:181
+github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter.(*client).pushLogData
+        github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter@v0.121.0/client.go:152
+go.opentelemetry.io/collector/exporter/exporterhelper.(*logsRequest).Export
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/logs.go:66
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewBaseExporter.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/base_exporter.go:72
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*sender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/sender.go:31
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*retrySender).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/retry_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.(*obsReportSender[...]).Send
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/obs_report_sender.go:90
+go.opentelemetry.io/collector/exporter/exporterhelper/internal.NewQueueSender.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/queue_sender.go:44
+go.opentelemetry.io/collector/exporter/exporterhelper/internal/batcher.(*disabledBatcher[...]).Consume
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterhelper/internal/batcher/disabled_batcher.go:23
+go.opentelemetry.io/collector/exporter/exporterqueue.(*asyncQueue[...]).Start.func1
+        go.opentelemetry.io/collector/exporter@v0.121.0/exporterqueue/async_queue.go:47
+2025-03-26T18:01:00.072Z        info    internal/retry_sender.go:126    Exporting failed. Will retry the request after interval.        {"otelcol.component.id": "splunk_hec/platform_logs", "otelcol.component.kind": "Exporter", "otelcol.signal": "logs", "error": "Throttle (0s), error: HTTP 503 \"Service Unavailable\"", "interval": "2.937017167s"}
+2025-03-27T00:09:40.968Z        info    fileconsumer/file.go:265        Started watching file   {"otelcol.component.id": "filelog", "otelcol.component.kind": "Receiver", "otelcol.signal": "logs", "component": "fileconsumer", "path": "/var/log/pods/cert-manager_cert-manager-6794b8d569-p2gx8_c09c87f1-df7d-436f-ba23-f4ea166a6010/cert-manager-controller/0.log"}

@@ -1,0 +1,747 @@
+---
+# Source: splunk-otel-collector/templates/serviceAccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+automountServiceAccountToken: true
+metadata:
+  name: splunk-otel-collector
+  namespace: default
+  labels:
+    app.kubernetes.io/name: splunk-otel-collector
+    helm.sh/chart: splunk-otel-collector-0.120.1
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: splunk-otel-collector
+    app.kubernetes.io/version: "0.120.0"
+    app: splunk-otel-collector
+    chart: splunk-otel-collector-0.120.1
+    release: splunk-otel-collector
+    heritage: Helm
+---
+# Source: splunk-otel-collector/templates/secret-splunk.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: splunk-otel-collector
+  namespace: default
+  labels:
+    app.kubernetes.io/name: splunk-otel-collector
+    helm.sh/chart: splunk-otel-collector-0.120.1
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: splunk-otel-collector
+    app.kubernetes.io/version: "0.120.0"
+    app: splunk-otel-collector
+    chart: splunk-otel-collector-0.120.1
+    release: splunk-otel-collector
+    heritage: Helm
+type: Opaque
+data:
+  splunk_platform_hec_token: M2U0MzU5YjMtOWY2Zi00NWYwLWJjMjAtZjcwOWI2YzBlNjNm
+---
+# Source: splunk-otel-collector/templates/configmap-agent.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: splunk-otel-collector-otel-agent
+  namespace: default
+  labels:
+    app.kubernetes.io/name: splunk-otel-collector
+    helm.sh/chart: splunk-otel-collector-0.120.1
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: splunk-otel-collector
+    app.kubernetes.io/version: "0.120.0"
+    app: splunk-otel-collector
+    chart: splunk-otel-collector-0.120.1
+    release: splunk-otel-collector
+    heritage: Helm
+data:
+  relay: |
+    exporters:
+      splunk_hec:
+        endpoint: https://splunk-hec.umd.edu:8088/services/collector
+        source: k8s
+        sourcetype: otel
+        token: 3e4359b3-9f6f-45f0-bc20-f709b6c0e63f
+      splunk_hec/platform_logs:
+        disable_compression: true
+        endpoint: https://splunk-hec.umd.edu:8088/services/collector
+        idle_conn_timeout: 10s
+        index: main
+        max_idle_conns: 200
+        max_idle_conns_per_host: 200
+        profiling_data_enabled: false
+        retry_on_failure:
+          enabled: true
+          initial_interval: 5s
+          max_elapsed_time: 300s
+          max_interval: 30s
+        sending_queue:
+          enabled: true
+          num_consumers: 10
+          queue_size: 1000
+        source: kubernetes
+        splunk_app_name: splunk-otel-collector
+        splunk_app_version: 0.120.1
+        timeout: 10s
+        tls:
+          insecure_skip_verify: false
+        token: ${SPLUNK_PLATFORM_HEC_TOKEN}
+    extensions:
+      file_storage:
+        directory: /var/addon/splunk/otel_pos
+      health_check:
+        endpoint: 0.0.0.0:13133
+      k8s_observer:
+        auth_type: serviceAccount
+        node: ${K8S_NODE_NAME}
+      zpages: null
+    processors:
+      batch:
+        metadata_keys:
+        - X-SF-Token
+      filter/logs:
+        logs:
+          exclude:
+            match_type: strict
+            resource_attributes:
+            - key: splunk.com/exclude
+              value: "true"
+      k8sattributes:
+        extract:
+          annotations:
+          - from: pod
+            key: splunk.com/sourcetype
+          - from: namespace
+            key: splunk.com/exclude
+            tag_name: splunk.com/exclude
+          - from: pod
+            key: splunk.com/exclude
+            tag_name: splunk.com/exclude
+          - from: namespace
+            key: splunk.com/index
+            tag_name: com.splunk.index
+          - from: pod
+            key: splunk.com/index
+            tag_name: com.splunk.index
+          labels:
+          - key: app
+          metadata:
+          - k8s.namespace.name
+          - k8s.node.name
+          - k8s.pod.name
+          - k8s.pod.uid
+          - container.id
+          - container.image.name
+          - container.image.tag
+        filter:
+          node_from_env_var: K8S_NODE_NAME
+        pod_association:
+        - sources:
+          - from: resource_attribute
+            name: k8s.pod.uid
+        - sources:
+          - from: resource_attribute
+            name: k8s.pod.ip
+        - sources:
+          - from: resource_attribute
+            name: ip
+        - sources:
+          - from: connection
+        - sources:
+          - from: resource_attribute
+            name: host.name
+      memory_limiter:
+        check_interval: 2s
+        limit_mib: ${SPLUNK_MEMORY_LIMIT_MIB}
+      resource:
+        attributes:
+        - action: insert
+          key: k8s.node.name
+          value: ${K8S_NODE_NAME}
+        - action: upsert
+          key: k8s.cluster.name
+          value: libr-test-cluster
+      resource/add_agent_k8s:
+        attributes:
+        - action: insert
+          key: k8s.pod.name
+          value: ${K8S_POD_NAME}
+        - action: insert
+          key: k8s.pod.uid
+          value: ${K8S_POD_UID}
+        - action: insert
+          key: k8s.namespace.name
+          value: ${K8S_NAMESPACE}
+      resource/add_mode:
+        attributes:
+        - action: insert
+          key: otelcol.service.mode
+          value: agent
+      resource/events:
+        attributes:
+        - action: insert
+          key: com.splunk.index
+          value: svpaap_libr_dss_ssdr_k8_events
+      resource/logs:
+        attributes:
+        - action: insert
+          key: com.splunk.index
+          value: svpaap_libr_dss_ssdr_k8_applogs
+      resource/metrics:
+        attributes:
+        - action: insert
+          key: com.splunk.index
+          value: svpaap_libr_dss_ssdr_k8_metrics
+      resource/traces:
+        attributes:
+        - action: insert
+          key: com.splunk.index
+          value: svpaap_libr_dss_ssdr_k8_objects
+      resourcedetection:
+        detectors:
+        - env
+        - system
+        override: true
+        timeout: 15s
+    receivers:
+      filelog:
+        encoding: utf-8
+        exclude:
+        - /var/log/pods/default_splunk-otel-collector*_*/otel-collector/*.log
+        fingerprint_size: 1kb
+        force_flush_period: "0"
+        include:
+        - /var/log/pods/*/*/*.log
+        include_file_name: false
+        include_file_path: true
+        max_concurrent_files: 1024
+        max_log_size: 1MiB
+        operators:
+        - id: get-format
+          routes:
+          - expr: body matches "^\\{"
+            output: parser-docker
+          - expr: body matches "^[^ Z]+ "
+            output: parser-crio
+          - expr: body matches "^[^ ]+ "
+            output: parser-containerd
+          type: router
+        - id: parser-crio
+          regex: ^(?P<time>[^ Z]+) (?P<stream>stdout|stderr) (?P<logtag>[^ ]*) ?(?P<log>.*)$
+          timestamp:
+            layout: 2006-01-02T15:04:05.999999999Z07:00
+            layout_type: gotime
+            parse_from: attributes.time
+          type: regex_parser
+        - combine_field: attributes.log
+          combine_with: ""
+          id: crio-recombine
+          is_last_entry: attributes.logtag == 'F'
+          max_log_size: 1048576
+          output: handle_empty_log
+          source_identifier: attributes["log.file.path"]
+          type: recombine
+        - id: parser-containerd
+          regex: ^(?P<time>[^ ]+) (?P<stream>stdout|stderr) (?P<logtag>[^ ]*) ?(?P<log>.*)$
+          timestamp:
+            layout: 2006-01-02T15:04:05.999999999Z07:00
+            layout_type: gotime
+            parse_from: attributes.time
+          type: regex_parser
+        - combine_field: attributes.log
+          combine_with: ""
+          id: containerd-recombine
+          is_last_entry: attributes.logtag == 'F'
+          max_log_size: 1048576
+          output: handle_empty_log
+          source_identifier: attributes["log.file.path"]
+          type: recombine
+        - id: parser-docker
+          timestamp:
+            layout: '%Y-%m-%dT%H:%M:%S.%LZ'
+            parse_from: attributes.time
+          type: json_parser
+        - combine_field: attributes.log
+          combine_with: ""
+          id: docker-recombine
+          is_last_entry: attributes.log endsWith "\n"
+          max_log_size: 1048576
+          output: handle_empty_log
+          source_identifier: attributes["log.file.path"]
+          type: recombine
+        - field: attributes.log
+          id: handle_empty_log
+          if: attributes.log == nil
+          type: add
+          value: ""
+        - parse_from: attributes["log.file.path"]
+          regex: ^\/var\/log\/pods\/(?P<namespace>[^_]+)_(?P<pod_name>[^_]+)_(?P<uid>[^\/]+)\/(?P<container_name>[^\._]+)\/(?P<restart_count>\d+)\.log$
+          type: regex_parser
+        - from: attributes.uid
+          to: resource["k8s.pod.uid"]
+          type: move
+        - from: attributes.restart_count
+          to: resource["k8s.container.restart_count"]
+          type: move
+        - from: attributes.container_name
+          to: resource["k8s.container.name"]
+          type: move
+        - from: attributes.namespace
+          to: resource["k8s.namespace.name"]
+          type: move
+        - from: attributes.pod_name
+          to: resource["k8s.pod.name"]
+          type: move
+        - field: resource["com.splunk.sourcetype"]
+          type: add
+          value: EXPR("kube:container:"+resource["k8s.container.name"])
+        - from: attributes.stream
+          to: attributes["log.iostream"]
+          type: move
+        - from: attributes["log.file.path"]
+          to: resource["com.splunk.source"]
+          type: move
+        - from: attributes.log
+          id: clean-up-log-record
+          to: body
+          type: move
+        - field: attributes.time
+          type: remove
+        poll_interval: 200ms
+        retry_on_failure:
+          enabled: true
+        start_at: beginning
+        storage: file_storage
+      fluentforward:
+        endpoint: 0.0.0.0:8006
+      k8s_cluster:
+        auth_type: none
+        metadata:
+          include:
+          - k8s.pod.name
+          - k8s.namespace.name
+          - k8s.node.name
+        node_conditions_to_report:
+        - Ready
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+      prometheus/agent:
+        config:
+          scrape_configs:
+          - job_name: otel-agent
+            metric_relabel_configs:
+            - action: drop
+              regex: promhttp_metric_handler_errors.*
+              source_labels:
+              - __name__
+            - action: drop
+              regex: otelcol_processor_batch_.*
+              source_labels:
+              - __name__
+            scrape_interval: 10s
+            static_configs:
+            - targets:
+              - localhost:8889
+    service:
+      extensions:
+      - file_storage
+      - health_check
+      - k8s_observer
+      - zpages
+      pipelines:
+        events:
+          exporters:
+          - splunk_hec
+          processors:
+          - batch
+          - resource/events
+          receivers:
+          - otlp
+        logs:
+          exporters:
+          - splunk_hec
+          processors:
+          - batch
+          - resource/logs
+          receivers:
+          - k8s_cluster
+        metrics:
+          exporters:
+          - splunk_hec
+          processors:
+          - batch
+          - resource/metrics
+          receivers:
+          - otlp
+        traces:
+          exporters:
+          - splunk_hec
+          processors:
+          - batch
+          - resource/traces
+          receivers:
+          - otlp
+      telemetry:
+        metrics:
+          readers:
+          - pull:
+              exporter:
+                prometheus:
+                  host: localhost
+                  port: 8889
+                  without_scope_info: true
+                  without_type_suffix: true
+                  without_units: true
+        resource:
+          service.name: otel-agent
+---
+# Source: splunk-otel-collector/templates/clusterRole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: splunk-otel-collector
+  labels:
+    app.kubernetes.io/name: splunk-otel-collector
+    helm.sh/chart: splunk-otel-collector-0.120.1
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: splunk-otel-collector
+    app.kubernetes.io/version: "0.120.0"
+    app: splunk-otel-collector
+    chart: splunk-otel-collector-0.120.1
+    release: splunk-otel-collector
+    heritage: Helm
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - events
+  - namespaces
+  - namespaces/status
+  - nodes
+  - nodes/spec
+  - nodes/stats
+  - nodes/proxy
+  - pods
+  - pods/status
+  - persistentvolumeclaims
+  - persistentvolumes
+  - replicationcontrollers
+  - replicationcontrollers/status
+  - resourcequotas
+  - services
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - daemonsets
+  - deployments
+  - replicasets
+  - statefulsets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  resources:
+  - daemonsets
+  - deployments
+  - replicasets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  - cronjobs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+    - autoscaling
+  resources:
+    - horizontalpodautoscalers
+  verbs:
+    - get
+    - list
+    - watch
+- nonResourceURLs:
+  - /metrics
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - events.k8s.io
+  resources:
+  - events
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+---
+# Source: splunk-otel-collector/templates/clusterRoleBinding.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: splunk-otel-collector
+  labels:
+    app.kubernetes.io/name: splunk-otel-collector
+    helm.sh/chart: splunk-otel-collector-0.120.1
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: splunk-otel-collector
+    app.kubernetes.io/version: "0.120.0"
+    app: splunk-otel-collector
+    chart: splunk-otel-collector-0.120.1
+    release: splunk-otel-collector
+    heritage: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: splunk-otel-collector
+subjects:
+- kind: ServiceAccount
+  name: splunk-otel-collector
+  namespace: default
+---
+# Source: splunk-otel-collector/templates/service-agent.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: splunk-otel-collector-agent
+  namespace: default
+  labels:
+    app.kubernetes.io/name: splunk-otel-collector
+    helm.sh/chart: splunk-otel-collector-0.120.1
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: splunk-otel-collector
+    app.kubernetes.io/version: "0.120.0"
+    app: splunk-otel-collector
+    component: otel-collector-agent
+    chart: splunk-otel-collector-0.120.1
+    release: splunk-otel-collector
+    heritage: Helm
+    app.kubernetes.io/component: otel-collector-agent
+spec:
+  type: ClusterIP
+  ports:
+  - name: fluentforward
+    port: 8006
+    targetPort: fluentforward
+    protocol: TCP
+  - name: otlp
+    port: 4317
+    targetPort: otlp
+    protocol: TCP
+  - name: otlp-http
+    port: 4318
+    targetPort: otlp-http
+    protocol: TCP
+  selector:
+    app: splunk-otel-collector
+    component: otel-collector-agent
+    release: splunk-otel-collector
+  internalTrafficPolicy: Local
+---
+# Source: splunk-otel-collector/templates/daemonset.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: splunk-otel-collector-agent
+  namespace: default
+  labels:
+    app.kubernetes.io/name: splunk-otel-collector
+    helm.sh/chart: splunk-otel-collector-0.120.1
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: splunk-otel-collector
+    app.kubernetes.io/version: "0.120.0"
+    app: splunk-otel-collector
+    component: otel-collector-agent
+    chart: splunk-otel-collector-0.120.1
+    release: splunk-otel-collector
+    heritage: Helm
+spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: splunk-otel-collector
+      release: splunk-otel-collector
+  template:
+    metadata:
+      labels:
+        app: splunk-otel-collector
+        component: otel-collector-agent
+        release: splunk-otel-collector
+      annotations:
+        checksum/config: 17a2067446781faf14cad881436b1b86868a10a0ca19164e009a9c46c36ac5d3
+        kubectl.kubernetes.io/default-container: otel-collector
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      serviceAccountName: splunk-otel-collector
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
+        - effect: NoSchedule
+          key: kubernetes.io/system-node
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/infra
+          operator: Exists
+      initContainers:
+        - name: migrate-checkpoint
+          image: quay.io/signalfx/splunk-otel-collector:0.120.0
+          imagePullPolicy: IfNotPresent
+          command: ["/migratecheckpoint"]
+          securityContext:
+            runAsUser: 0
+          env:
+          - name: CONTAINER_LOG_PATH_FLUENTD
+            value: "/var/log/splunk-fluentd-containers.log.pos"
+          - name: CONTAINER_LOG_PATH_OTEL
+            value: "/var/addon/splunk/otel_pos/receiver_filelog_"
+          - name: CUSTOM_LOG_PATH_FLUENTD
+            value: "/var/log/splunk-fluentd-*.pos"
+          - name: CUSTOM_LOG_PATH_OTEL
+            value: "/var/addon/splunk/otel_pos/receiver_filelog_"
+          - name: CUSTOM_LOG_CAPTURE_REGEX
+            value: '\/var\/log\/splunk\-fluentd\-(?P<name>[\w0-9-_]+)\.pos'
+          - name: JOURNALD_LOG_PATH_FLUENTD
+            value: "/var/log/splunkd-fluentd-journald-*.pos.json"
+          - name: JOURNALD_LOG_PATH_OTEL
+            value: "/var/addon/splunk/otel_pos/receiver_journald_"
+          - name: JOURNALD_LOG_CAPTURE_REGEX
+            value: '\/splunkd\-fluentd\-journald\-(?P<name>[\w0-9-_]+)\.pos\.json'
+          resources:
+            limits:
+              cpu: 200m
+              memory: 500Mi
+          volumeMounts:
+            - name: checkpoint
+              mountPath: /var/addon/splunk/otel_pos
+            - name: varlog
+              mountPath: /var/log
+            - name: varlibdockercontainers
+              mountPath: /var/lib/docker/containers
+      containers:
+      - name: otel-collector
+        command:
+        - /otelcol
+        - --config=/conf/relay.yaml
+        ports:
+        - name: fluentforward
+          containerPort: 8006
+          hostPort: 8006
+          protocol: TCP
+        - name: otlp
+          containerPort: 4317
+          hostPort: 4317
+          protocol: TCP
+        - name: otlp-http
+          containerPort: 4318
+          protocol: TCP
+        image: quay.io/signalfx/splunk-otel-collector:0.120.0
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          runAsUser: 0
+        env:
+          - name: SPLUNK_MEMORY_TOTAL_MIB
+            value: "500"
+          - name: K8S_NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          - name: K8S_NODE_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.hostIP
+          - name: K8S_POD_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.podIP
+          - name: K8S_POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: K8S_POD_UID
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.uid
+          - name: K8S_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: SPLUNK_PLATFORM_HEC_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: splunk-otel-collector
+                key: splunk_platform_hec_token
+
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 13133
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 13133
+        resources:
+          limits:
+            cpu: 200m
+            memory: 500Mi
+        volumeMounts:
+        - mountPath: /conf
+          name: otel-configmap
+        - name: varlog
+          mountPath: /var/log
+          readOnly: true
+        - name: varlibdockercontainers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
+        - name: checkpoint
+          mountPath: /var/addon/splunk/otel_pos
+        - mountPath: /usr/lib/splunk-otel-collector/agent-bundle/run/collectd
+          name: run-collectd
+          readOnly: false
+      terminationGracePeriodSeconds: 600
+      volumes:
+      - name: run-collectd
+        emptyDir:
+          sizeLimit: 25Mi
+      - name: varlog
+        hostPath:
+          path: /var/log
+      - name: varlibdockercontainers
+        hostPath:
+          path: /var/lib/docker/containers
+      - name: checkpoint
+        hostPath:
+          path: /var/addon/splunk/otel_pos
+          type: DirectoryOrCreate
+      - name: otel-configmap
+        configMap:
+          name: splunk-otel-collector-otel-agent
+          items:
+            - key: relay
+              path: relay.yaml

@@ -1,0 +1,63 @@
+splunkPlatform:
+  token: "3e4359b3-9f6f-45f0-bc20-f709b6c0e63f"
+  endpoint: "https://splunk-hec.umd.edu:8088/services/collector"
+  insecureSkipVerify: false
+
+clusterName: "libr-test-cluster"
+logsEngine: "otel"
+agent:
+  enabled: true
+  hostNetwork: false
+  config:
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4519  
+          http:
+            endpoint: 0.0.0.0:4520
+    processors:
+      resource/add_index:
+        attributes:
+          - action: insert
+            key: "splunk.index"
+            from_attribute: "log_type"
+      routing:
+        from_attribute: "log_type"
+        table:
+          - value: "metrics"
+            exporters: [splunk_hec/metrics]
+          - value: "objects"
+            exporters: [splunk_hec/objects]
+          - value: "applogs"
+            exporters: [splunk_hec/applogs]
+    exporters:
+      splunk_hec/metrics:
+        token: "3e4359b3-9f6f-45f0-bc20-f709b6c0e63f"
+        endpoint: "https://splunk-hec.umd.edu:8088"
+        source: "k8s_metrics"
+        index: svpaap_libr_dss_ssdr_k8_metrics
+      splunk_hec/objects:
+        token: "3e4359b3-9f6f-45f0-bc20-f709b6c0e63f"
+        endpoint: "https://splunk-hec.umd.edu:8088"
+        source: "k8s_objects"
+        index: svpaap_libr_dss_ssdr_k8_objects
+      splunk_hec/applogs:
+        token: "3e4359b3-9f6f-45f0-bc20-f709b6c0e63f"
+        endpoint: "https://splunk-hec.umd.edu:8088"
+        source: "k8s_applogs"
+        index: svpaap_libr_dss_ssdr_k8_applogs
+    service:
+      pipelines:
+        metrics:
+          receivers: [otlp]
+          processors: [resource/add_index, routing]
+          exporters: [splunk_hec/metrics]
+        logs:
+          receivers: [otlp, fluentforward]
+          processors: [resource/add_index, routing]
+          exporters: [splunk_hec/applogs]
+        traces:
+          receivers: [otlp]
+          processors: [resource/add_index, routing]
+          exporters: [splunk_hec/objects]

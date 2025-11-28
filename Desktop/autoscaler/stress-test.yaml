@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-scale-test
+  namespace: default
+spec:
+  replicas: 12  # Intentionally set HIGH — to exceed current node capacity
+  selector:
+    matchLabels:
+      app: nginx-scale-test
+  template:
+    metadata:
+      labels:
+        app: nginx-scale-test
+    spec:
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: node-group-us-east-1c-20250409151727593100000007
+      containers:
+      - name: nginx
+        image: nginx:stable
+        resources:
+          requests:
+            cpu: "800m"
+            memory: "500Mi"
+          limits:
+            cpu: "1000m"
+            memory: "800Mi"

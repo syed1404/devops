@@ -1,0 +1,55 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: otel-collector-role
+rules:
+  # Allow read access to basic Kubernetes resources
+  - apiGroups: [""]
+    resources:
+      - nodes
+      - nodes/metrics
+      - nodes/stats
+      - nodes/proxy
+      - namespaces
+      - pods
+      - replicationcontrollers
+      - persistentvolumes
+    verbs: ["get", "list", "watch"]
+
+  # Allow reading events from both core API and events.k8s.io (for newer versions)
+  - apiGroups: ["", "events.k8s.io"]
+    resources:
+      - events
+    verbs: ["get", "list", "watch"]
+
+  # Allow read access to workloads (deployments, daemonsets, statefulsets)
+  - apiGroups: ["apps"]
+    resources:
+      - deployments
+      - daemonsets
+      - statefulsets
+      - replicasets
+    verbs: ["get", "list", "watch"]
+
+  # Allow read access to jobs and cronjobs
+  - apiGroups: ["batch"]
+    resources:
+      - jobs
+      - cronjobs
+    verbs: ["get", "list", "watch"]
+
+  # Read access to ingress and services
+  - apiGroups: ["networking.k8s.io", ""]
+    resources:
+      - ingresses
+      - services
+      - endpoints
+    verbs: ["get", "list", "watch"]
+
+  # Read access to config maps and leases (for leader election)
+  - apiGroups: ["", "coordination.k8s.io"]
+    resources:
+      - configmaps
+      - leases
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+

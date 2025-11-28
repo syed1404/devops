@@ -1,0 +1,35 @@
+splunkPlatform:
+  token: "3e4359b3-9f6f-45f0-bc20-f709b6c0e63f"
+  endpoint: "https://splunk-hec.umd.edu:8088/services/collector"
+  insecureSkipVerify: false
+
+clusterName: "libr-test-cluster"
+logsEngine: "otel"
+
+logs:
+  extraAttributes:
+    - rule: true
+      attributes:
+        - key: "com.splunk.index"
+          value: "svpaap_libr_dss_ssdr_k8_applogs"
+
+metrics:
+  extraAttributes:
+    - rule: true
+      attributes:
+        - key: "com.splunk.index"
+          value: "svpaap_libr_dss_ssdr_k8_metrics"
+
+events:
+  extraAttributes:
+    - rule: true
+      attributes:
+        - key: "com.splunk.index"
+          value: "svpaap_libr_dss_ssdr_k8_events"
+
+objects:
+  extraAttributes:
+    - rule: true
+      attributes:
+        - key: "com.splunk.index"
+          value: "svpaap_libr_dss_ssdr_k8_objects"

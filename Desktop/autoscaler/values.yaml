@@ -1,0 +1,33 @@
+autoDiscovery:
+  clusterName: libr-test-cluster
+
+awsRegion: us-east-1
+
+cloudProvider: aws
+
+rbac:
+  create: true
+  serviceAccount:
+    create: true
+    annotations: {
+      eks.amazonaws.com/role-arn: arn:aws:iam::284762642143:role/ClusterAutoscalerRole
+    }
+
+extraArgs:
+  cloud-provider: aws
+  expander: least-waste
+  aws-use-static-instance-list: "false"
+  skip-nodes-with-local-storage: "false"
+  skip-nodes-with-system-pods: "false"
+  v: "4"
+
+podAnnotations:
+  cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 600Mi
+  requests:
+    cpu: 100m
+    memory: 600Mi
